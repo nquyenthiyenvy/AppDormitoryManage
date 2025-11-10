@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/itemRoom"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:background="#FFFFFF"
+    android:layout_marginBottom="4dp"
+    android:elevation="2dp">
+
+    <TextView
+        android:id="@+id/tvRoomId"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="ID"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvRoomName"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="Room Name"
+        android:textStyle="bold"
+        android:paddingStart="8dp" />
+
+    <TextView
+        android:id="@+id/tvRoomType"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="Type"
+        android:textStyle="bold"
+        android:gravity="center"/>
+</LinearLayout>

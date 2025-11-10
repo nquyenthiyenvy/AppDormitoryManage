@@ -8,8 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "ktx.db";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 3;
     private static final String TABLE_USERS = "users";
+
+    private static final String TABLE_ROOMS = "rooms";
 
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -22,11 +24,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Thêm tài khoản admin mặc định
         db.execSQL("INSERT INTO " + TABLE_USERS + " (username, password) VALUES ('admin', '123')");
+
+        // Bảng room
+        db.execSQL("CREATE TABLE " + TABLE_ROOMS + " (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "nameRoom TEXT, " +
+                "typeRoom TEXT)");
+        db.execSQL("INSERT INTO " + TABLE_ROOMS + " (nameRoom, typeRoom) VALUES ('Phòng 101', 'Nam')");
+        db.execSQL("INSERT INTO " + TABLE_ROOMS + " (nameRoom, typeRoom) VALUES ('Phòng 201', 'Nữ')");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROOMS);
         onCreate(db);
     }
 
@@ -40,5 +51,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         boolean exists = cursor.getCount() > 0;
         cursor.close();
         return exists;
+    }
+    // LẤY DANH SÁCH PHÒNG
+    public Cursor getAllRooms() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM " + TABLE_ROOMS, null);
     }
 }
