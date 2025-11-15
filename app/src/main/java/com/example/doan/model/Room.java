@@ -10,7 +10,10 @@ public class Room {
         this.name = name;
         this.type = type;
     }
-
+    public Room( String name, String type) {
+        this.name = name;
+        this.type = type;
+    }
     public int getId() {
         return id;
     }

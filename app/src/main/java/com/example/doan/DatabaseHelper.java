@@ -1,9 +1,12 @@
 package com.example.doan;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.doan.model.Room;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -57,4 +60,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_ROOMS, null);
     }
+    // Thêm phòng
+    public boolean addRoom(Room room) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("nameRoom", room.getName());
+        values.put("typeRoom", room.getType());
+
+        long result = db.insert(TABLE_ROOMS, null, values);
+        return result != -1;
+    }
+
+    // Cập nhật thông tin phòng
+    public boolean updateRoom(Room room) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("nameRoom", room.getName());
+        values.put("typeRoom", room.getType());
+
+        // Cập nhật dựa trên id
+        int rowsAffected = db.update(TABLE_ROOMS, values, "id = ?", new String[]{String.valueOf(room.getId())});
+
+        return rowsAffected > 0;
+    }
+
+    // Xóa phòng
+    public boolean deleteRoom(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_ROOMS + " WHERE id = ?",
+                new Object[]{id});
+        return true;
+    }
+
+
 }
