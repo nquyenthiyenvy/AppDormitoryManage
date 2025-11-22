@@ -1,0 +1,10 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tvHeaderRoomName"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Room Name"
+    android:textSize="20sp"
+    android:textStyle="bold"
+    android:gravity="center"
+    android:padding="12dp"
+    android:textColor="#A3003B" />

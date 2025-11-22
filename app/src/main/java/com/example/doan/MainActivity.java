@@ -1,5 +1,6 @@
 package com.example.doan;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -48,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
     private void loadData() {
         rooms.clear();
         Cursor cursor = dbHelper.getAllRooms();
-        ArrayList<String> roomList = new ArrayList<>();
         if(cursor.moveToFirst()){
             do{
                 int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
@@ -117,22 +117,52 @@ public class MainActivity extends AppCompatActivity {
         });
         listRooms.setOnItemLongClickListener((parent, view, position, id) -> {
             int realPosition = position - listRooms.getHeaderViewsCount();
+
             if (realPosition >= 0 && realPosition < rooms.size()) {
-                Room roomToDelete = rooms.get(realPosition);
-                new androidx.appcompat.app.AlertDialog.Builder(MainActivity.this)
-                        .setTitle("Xác nhận xóa")
-                        .setMessage("Bạn có chắc muốn xóa phòng " + roomToDelete.getName() + "?")
-                        .setPositiveButton("Có", (dialog, which) -> {
-                            // Xóa khỏi database
-                            boolean deleted = dbHelper.deleteRoom(roomToDelete.getId());
-                            loadData();
-                        })
-                        .setNegativeButton("Không", (dialog, which) -> {
-                            dialog.dismiss();
-                        })
-                        .show();
+                Room selectedRoom = rooms.get(realPosition);
+
+                // Tạo PopupMenu
+                androidx.appcompat.widget.PopupMenu popupMenu =
+                        new androidx.appcompat.widget.PopupMenu(MainActivity.this, view);
+
+                popupMenu.getMenu().add("Xóa phòng");
+                popupMenu.getMenu().add("Xem danh sách sinh viên");
+
+                // Bắt sự kiện chọn menu
+                popupMenu.setOnMenuItemClickListener(item -> {
+                    String title = item.getTitle().toString();
+
+                    if (title.equals("Xóa phòng")) {
+
+                        // Dialog xác nhận xóa
+                        new androidx.appcompat.app.AlertDialog.Builder(MainActivity.this)
+                                .setTitle("Xác nhận xóa")
+                                .setMessage("Bạn có chắc muốn xóa phòng " + selectedRoom.getName() + "?")
+                                .setPositiveButton("Có", (dialog, which) -> {
+                                    boolean deleted = dbHelper.deleteRoom(selectedRoom.getId());
+                                    loadData(); // Load lại danh sách
+                                })
+                                .setNegativeButton("Không", null)
+                                .show();
+
+                    } else if (title.equals("Xem danh sách sinh viên")) {
+                        Intent intent = new Intent(MainActivity.this, StudentList.class);
+
+                        // Truyền room ID sang activity khác
+                        intent.putExtra("ROOM_ID", selectedRoom.getId());
+                        intent.putExtra("ROOM_NAME", selectedRoom.getName());
+
+                        startActivity(intent);
+                    }
+
+                    return true;
+                });
+
+                popupMenu.show();
             }
+
             return true;
         });
+
     }
 }
