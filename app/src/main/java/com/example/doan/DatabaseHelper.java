@@ -12,7 +12,7 @@ import com.example.doan.model.Student;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "ktx.db";
-    private static final int DB_VERSION = 10;
+    private static final int DB_VERSION = 11;
     private static final String TABLE_USERS = "users";
 
     private static final String TABLE_ROOMS = "rooms";
@@ -59,7 +59,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "VALUES ('Nguyễn Văn C', '11-12-2003', 'DH52110003', 'Nam', '012345611', 'Đắk Lắk', 1)");
         db.execSQL("INSERT INTO " + TABLE_STUDENS +
                 " (name, birthday, mssv, gender, phone, address, roomId) " +
-                "VALUES ('Bùi Hữu D', '05-03-2003', 'DH52110004', 'Nam', '01234567u', 'Hải Dương', 1)");
+                "VALUES ('Bùi Hữu D', '05-03-2003', 'DH52110004', 'Nam', '01234567u', '180 Cao Lỗ, Phường 4, Quận 8, TP Hồ Chí Minh', 1)");
         db.execSQL("INSERT INTO " + TABLE_STUDENS +
                 " (name, birthday, mssv, gender, phone, address, roomId) " +
                 "VALUES ('Nguyễn Văn A', '22-01-2003', 'DH52110005', 'Nam', '01234567uu', 'Hà Nội', 1)");
@@ -166,6 +166,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = db.insert(TABLE_STUDENS, null, values);
 
         return result != -1;
+    }
+    public boolean updateStudent(Student s) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("name", s.getName());
+        values.put("birthday", s.getBirthday());
+        values.put("mssv", s.getMssv());
+        values.put("gender", s.getGender());
+        values.put("phone", s.getPhone());
+        values.put("address", s.getAddress());
+        values.put("roomId", s.getRoomId());
+        values.put("avatar", s.getAvatar());
+        long result = db.update(TABLE_STUDENS, values, "id = ?", new String[]{String.valueOf(s.getId())});
+        return result != -1;
+
+    }
+    public boolean deleteStudent(int studentId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rows = db.delete(TABLE_STUDENS, "id = ?", new String[]{String.valueOf(studentId)});
+        return rows > 0;
     }
 
 }

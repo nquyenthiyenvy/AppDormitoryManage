@@ -32,6 +32,7 @@ public class StudentList extends AppCompatActivity {
     int roomId;
     ImageButton imgBtnAdd;
     private static final int REQUEST_ADD_STUDENT = 100;
+    private static final int REQUEST_UPDATE_STUDENT = 101;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,13 +43,10 @@ public class StudentList extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
         addControl();
         loadSV();
         addEvent();
     }
-
-
 
     private void loadSV() {
         students.clear();
@@ -67,7 +65,6 @@ public class StudentList extends AppCompatActivity {
                 students.add(new Student(id, name, birthday, mssv, gender, phone, address,avatar ,roomId));
             } while (cursor.moveToNext());
         }
-
         cursor.close();
         if (listStudents.getHeaderViewsCount() == 0) {
             View header = getLayoutInflater().inflate(R.layout.student_list_header, null);
@@ -92,6 +89,27 @@ public class StudentList extends AppCompatActivity {
     private void addEvent() {
         handleStudentItemClick();
         hanldeAddStudentClick();
+        handleDeleteStudent();
+    }
+
+    private void handleDeleteStudent() {
+        listStudents.setOnItemLongClickListener((parent, view, position, id) -> {
+            int realPosition = position - listStudents.getHeaderViewsCount();
+
+            if (realPosition < 0 || realPosition >= students.size()) return true;
+
+            selectedStudent =  students.get(realPosition);
+            new androidx.appcompat.app.AlertDialog.Builder(StudentList.this)
+                    .setTitle("Xác nhận xóa")
+                    .setMessage("Bạn có chắc muốn xóa sinh viên " + selectedStudent.getName() + "?")
+                    .setPositiveButton("Có", (dialog, which) -> {
+                        dbHelper.deleteStudent(selectedStudent.getId());
+                        loadSV();
+                    })
+                    .setNegativeButton("Không", null)
+                    .show();
+            return true;
+        });
     }
 
     private void hanldeAddStudentClick() {
@@ -109,7 +127,7 @@ public class StudentList extends AppCompatActivity {
                 selectedStudent = students.get(realPosition);
                 Intent intent = new Intent(StudentList.this, StudentDetail.class);
                 intent.putExtra("STUDENT_ID", selectedStudent.getId());
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_UPDATE_STUDENT);
             }
         });
     }
@@ -117,7 +135,7 @@ public class StudentList extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_ADD_STUDENT && resultCode == RESULT_OK) {
+        if ((requestCode == REQUEST_ADD_STUDENT|| requestCode == REQUEST_UPDATE_STUDENT) && resultCode == RESULT_OK) {
             loadSV();
         }
     }
