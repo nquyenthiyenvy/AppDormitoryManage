@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         }
         listRooms.setAdapter(roomAdapter);
         roomAdapter.notifyDataSetChanged();
-
     }
 
     private void addControl() {
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     private void addEvent() {
         // click chọn phòng
         listRooms.setOnItemClickListener((parent, view, position, id) -> {
-            int realPosition = position - listRooms.getHeaderViewsCount();
+            int realPosition = position - 1;
             if(realPosition >= 0 && realPosition < rooms.size()) {
                 selectedRoom = rooms.get(realPosition);
                 // Hiển thị dữ liệu lên form
@@ -99,11 +99,21 @@ public class MainActivity extends AppCompatActivity {
             String type = rbMale.isChecked() ? "Nam" : "Nữ";
             Room room = new Room(name,type);
             if(selectedRoom == null) {
-                dbHelper.addRoom(room);
+                boolean result = dbHelper.addRoom(room);
+                if(result){
+                    Toast.makeText(this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(this, "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                }
             } else {
                 selectedRoom.setName(name);
                 selectedRoom.setType(type);
-                dbHelper.updateRoom(selectedRoom);
+                boolean result =    dbHelper.updateRoom(selectedRoom);
+                if(result){
+                    Toast.makeText(this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(this, "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                }
             }
             selectedRoom = null;
             edtRoomName.setText("");
@@ -140,18 +150,23 @@ public class MainActivity extends AppCompatActivity {
                                 .setMessage("Bạn có chắc muốn xóa phòng " + selectedRoom.getName() + "?")
                                 .setPositiveButton("Có", (dialog, which) -> {
                                     boolean deleted = dbHelper.deleteRoom(selectedRoom.getId());
-                                    loadData(); // Load lại danh sách
+                                    loadData();
+                                    if(deleted){
+                                        Toast.makeText(MainActivity.this, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        Toast.makeText(MainActivity.this, "Còn sinh viên trong phòng. Không thể xóa !!!", Toast.LENGTH_SHORT).show();
+                                    }
                                 })
                                 .setNegativeButton("Không", null)
                                 .show();
 
                     } else if (title.equals("Xem danh sách sinh viên")) {
                         Intent intent = new Intent(MainActivity.this, StudentList.class);
-
                         // Truyền room ID sang activity khác
                         intent.putExtra("ROOM_ID", selectedRoom.getId());
                         intent.putExtra("ROOM_NAME", selectedRoom.getName());
-
+                        intent.putExtra("ROOM_TYPE", selectedRoom.getType());
+                        //")
                         startActivity(intent);
                     }
 

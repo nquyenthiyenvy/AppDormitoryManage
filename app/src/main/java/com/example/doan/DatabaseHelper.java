@@ -70,10 +70,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROOMS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STUDENS);
-        onCreate(db);
+//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROOMS);
+//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STUDENS);
+//        onCreate(db);
     }
 
     // KIỂM TRA ĐĂNG NHẬP
@@ -151,6 +151,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         );
     }
     public boolean addStudent(Student s) {
+        SQLiteDatabase dbR = this.getReadableDatabase();
+        Cursor cursor = dbR.rawQuery(
+                "SELECT COUNT(*) FROM " + TABLE_STUDENS + " WHERE mssv = ?",
+                new String[]{String.valueOf(s.getMssv())}
+        );
+        cursor.moveToFirst();
+        int studentCount = cursor.getInt(0);
+        cursor.close();
+        if (studentCount > 0) {
+            return false;
+        }
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -168,8 +179,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
     public boolean updateStudent(Student s) {
+        SQLiteDatabase dbR = this.getReadableDatabase();
+        Cursor cursor = dbR.rawQuery(
+                "SELECT COUNT(*) FROM " + TABLE_STUDENS + " WHERE mssv = ? AND id != ?",
+                new String[]{String.valueOf(s.getMssv()), String.valueOf(s.getId())}
+        );
+        cursor.moveToFirst();
+        int studentCount = cursor.getInt(0);
+        cursor.close();
+        if (studentCount > 0) {
+            return false;
+        }
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put("name", s.getName());
         values.put("birthday", s.getBirthday());

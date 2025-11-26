@@ -1,5 +1,7 @@
 package com.example.doan.model;
 
+import androidx.annotation.NonNull;
+
 public class Room {
     private int id;
     private String name;
@@ -36,5 +38,11 @@ public class Room {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Phòng " + name + " - " + type;
     }
 }

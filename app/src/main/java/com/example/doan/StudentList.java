@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
@@ -33,6 +34,7 @@ public class StudentList extends AppCompatActivity {
     ImageButton imgBtnAdd;
     private static final int REQUEST_ADD_STUDENT = 100;
     private static final int REQUEST_UPDATE_STUDENT = 101;
+    String typeRoom;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +87,7 @@ public class StudentList extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
         students = new ArrayList<>();
         imgBtnAdd = findViewById(R.id.btnAddStudent);
+        typeRoom = getIntent().getStringExtra("ROOM_TYPE");
     }
     private void addEvent() {
         handleStudentItemClick();
@@ -103,7 +106,12 @@ public class StudentList extends AppCompatActivity {
                     .setTitle("Xác nhận xóa")
                     .setMessage("Bạn có chắc muốn xóa sinh viên " + selectedStudent.getName() + "?")
                     .setPositiveButton("Có", (dialog, which) -> {
-                        dbHelper.deleteStudent(selectedStudent.getId());
+                        boolean result = dbHelper.deleteStudent(selectedStudent.getId());
+                        if(result){
+                            Toast.makeText(StudentList.this, "Xóa thành công!", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(StudentList.this, "Xóa thất bại!", Toast.LENGTH_SHORT).show();
+                        }
                         loadSV();
                     })
                     .setNegativeButton("Không", null)
@@ -116,6 +124,7 @@ public class StudentList extends AppCompatActivity {
         imgBtnAdd.setOnClickListener(v -> {
             Intent intent = new Intent(StudentList.this, AddStudentForm.class);
             intent.putExtra("ROOM_ID", roomId);
+            intent.putExtra("ROOM_TYPE",typeRoom);
             startActivityForResult(intent,REQUEST_ADD_STUDENT);
         });
     }

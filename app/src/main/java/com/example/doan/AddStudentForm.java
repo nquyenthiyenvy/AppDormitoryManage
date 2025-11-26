@@ -30,13 +30,13 @@ public class AddStudentForm extends AppCompatActivity {
     Button btnExit, btnSave, btnChoose;
     EditText edtName, edtMssv, edtBirthday, edtPhone, edtAddress;
 
-    Spinner spGender;
 
     Uri imageUri;
     DatabaseHelper db;
     String savedImagePath;
     ActivityResultLauncher<Intent> pickImageLauncher;
     int idRoom;
+    String typeRoom;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,14 +68,8 @@ public class AddStudentForm extends AppCompatActivity {
         edtAddress = findViewById(R.id.edtAddress);
         imageUri = null;
         savedImagePath  = null;
-        spGender = findViewById(R.id.spGender);
 
         idRoom = getIntent().getIntExtra("ROOM_ID", -1);
-        ArrayAdapter<String> genderAdapter =
-                new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
-                        new String[]{"Nam", "Nữ"});
-        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spGender.setAdapter(genderAdapter);
         pickImageLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -85,6 +79,7 @@ public class AddStudentForm extends AppCompatActivity {
                     }
                 }
         );
+        typeRoom = getIntent().getStringExtra("ROOM_TYPE");
     }
     private void addEvent() {
         btnChoose.setOnClickListener(v -> chooseImage());
@@ -99,7 +94,7 @@ public class AddStudentForm extends AppCompatActivity {
         String name = edtName.getText().toString().trim();
         String birthday = edtBirthday.getText().toString().trim();
         String mssv = edtMssv.getText().toString().trim();
-        String gender = spGender.getSelectedItem().toString();
+        String gender = typeRoom;
         String phone = edtPhone.getText().toString().trim();
         String address = edtAddress.getText().toString().trim();
 
@@ -121,7 +116,7 @@ public class AddStudentForm extends AppCompatActivity {
             setResult(RESULT_OK);
             finish();
         } else {
-            Toast.makeText(this, "Thêm sinh viên thất bại!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Trùng mã số sinh viên!", Toast.LENGTH_SHORT).show();
         }
     }
     private String copyImageToInternalStorage(Uri uri) {

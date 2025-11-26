@@ -37,7 +37,6 @@ import java.util.List;
 public class StudentDetail extends AppCompatActivity {
     ImageView imgAvatar;
     EditText edtName, edtBirthday, edtMssv, edtPhone, edtAddress;
-    Spinner spGender;
     Button btnExit, btnSave, btnChoose;
 
     DatabaseHelper db;
@@ -78,7 +77,7 @@ public class StudentDetail extends AppCompatActivity {
     private void showStudentLocationOnMap() {
 
         if (googleMap == null || student == null) return;
-
+        googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         String address = student.getAddress();
         if (address == null || address.isEmpty()) return;
 
@@ -95,7 +94,7 @@ public class StudentDetail extends AppCompatActivity {
 
                 googleMap.clear();
                 googleMap.addMarker(new MarkerOptions().position(pos).title(student.getAddress()));
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, 16f));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, 20f));
             }
 
         } catch (Exception e) {
@@ -130,11 +129,6 @@ public class StudentDetail extends AppCompatActivity {
         edtMssv.setText(student.getMssv());
         edtPhone.setText(student.getPhone());
         edtAddress.setText(student.getAddress());
-        if (student.getGender().equalsIgnoreCase("Nam")) {
-            spGender.setSelection(0);
-        } else {
-            spGender.setSelection(1);
-        }
         if (student.getAvatar() != null && !student.getAvatar().isEmpty()) {
             File imgFile = new File(student.getAvatar());
             if (imgFile.exists()) {
@@ -154,7 +148,6 @@ public class StudentDetail extends AppCompatActivity {
         edtMssv = findViewById(R.id.edtMssv);
         edtPhone = findViewById(R.id.edtPhone);
         edtAddress = findViewById(R.id.edtAddress);
-        spGender = findViewById(R.id.spGender);
         btnExit = findViewById(R.id.btnExit);
         btnSave = findViewById(R.id.btnSave);
         btnChoose = findViewById(R.id.btnChooseImage);
@@ -164,7 +157,6 @@ public class StudentDetail extends AppCompatActivity {
                 android.R.layout.simple_spinner_dropdown_item,
                 new String[]{"Nam", "Nữ"}
         );
-        spGender.setAdapter(adapter);
         studentId = getIntent().getIntExtra("STUDENT_ID", -1);
         imageUri = null;
         savedImagePath = null;
@@ -195,7 +187,6 @@ public class StudentDetail extends AppCompatActivity {
         String name = edtName.getText().toString().trim();
         String birthday = edtBirthday.getText().toString().trim();
         String mssv = edtMssv.getText().toString().trim();
-        String gender = spGender.getSelectedItem().toString();
         String phone = edtPhone.getText().toString().trim();
         String address = edtAddress.getText().toString().trim();
 
@@ -209,7 +200,6 @@ public class StudentDetail extends AppCompatActivity {
         student.setName(name);
         student.setBirthday(birthday);
         student.setMssv(mssv);
-        student.setGender(gender);
         student.setPhone(phone);
         student.setAddress(address);
 
@@ -220,7 +210,7 @@ public class StudentDetail extends AppCompatActivity {
             setResult(RESULT_OK);
             finish();
         } else {
-            Toast.makeText(this, "Cập nhật thất bại!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Trùng mã số sinh viên!", Toast.LENGTH_SHORT).show();
         }
     }
 
