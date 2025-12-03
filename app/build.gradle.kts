@@ -8,7 +8,7 @@ android {
 
 
     defaultConfig {
-        applicationId = "com.example.doan"
+        applicationId = "vn.edu.stu.qlktx"
         minSdk = 26
         targetSdk = 36
         versionCode = 1

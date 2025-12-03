@@ -16,7 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 
-public class LoginActivity extends AppCompatActivity {
+public class     LoginActivity extends AppCompatActivity {
     private EditText edtUsername, edtPassword;
     private Button btnLogin;
     private TextView tvError, tvForgotPassword;
@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (db.checkLogin(user, pass)) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish();
+
         } else {
             showError("Tên đăng nhập hoặc mật khẩu không đ!");
         }

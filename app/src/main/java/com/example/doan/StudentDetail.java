@@ -78,28 +78,32 @@ public class StudentDetail extends AppCompatActivity {
 
         if (googleMap == null || student == null) return;
         googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+
         String address = student.getAddress();
         if (address == null || address.isEmpty()) return;
 
-        try {
-            Geocoder geocoder = new Geocoder(this);
-            List<Address> list = geocoder.getFromLocationName(address, 1);
+        new Thread(() -> {
+            try {
+                Geocoder geocoder = new Geocoder(this);
+                List<Address> list = geocoder.getFromLocationName(address, 1);
 
-            if (list != null && !list.isEmpty()) {
+                if (list != null && !list.isEmpty()) {
 
-                double lat = list.get(0).getLatitude();
-                double lng = list.get(0).getLongitude();
+                    double lat = list.get(0).getLatitude();
+                    double lng = list.get(0).getLongitude();
+                    LatLng pos = new LatLng(lat, lng);
 
-                LatLng pos = new LatLng(lat, lng);
+                    runOnUiThread(() -> {
+                        googleMap.clear();
+                        googleMap.addMarker(new MarkerOptions().position(pos).title(student.getAddress()));
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, 20f));
+                    });
+                }
 
-                googleMap.clear();
-                googleMap.addMarker(new MarkerOptions().position(pos).title(student.getAddress()));
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, 20f));
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        }).start();
     }
 
     private void loadData() {
