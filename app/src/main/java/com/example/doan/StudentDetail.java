@@ -6,6 +6,8 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,7 +18,9 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -53,6 +57,8 @@ public class StudentDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_student_detail);
+        Toolbar toolbar = findViewById(R.id.toolbar1);
+        setSupportActionBar(toolbar);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -104,6 +110,21 @@ public class StudentDetail extends AppCompatActivity {
                 e.printStackTrace();
             }
         }).start();
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_back,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.back) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void loadData() {
@@ -180,7 +201,18 @@ public class StudentDetail extends AppCompatActivity {
         btnExit.setOnClickListener(v -> finish());
         btnChoose.setOnClickListener(v -> chooseImage());
         btnSave.setOnClickListener(v -> updateStudent());
+        edtPhone.setOnLongClickListener(v -> {callPhone(); return true;});
     }
+
+    private void callPhone() {
+        String phone = edtPhone.getText().toString().trim();
+        if (!phone.isEmpty()) {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + phone));
+            startActivity(intent);
+        }
+    }
+
     private void chooseImage() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");

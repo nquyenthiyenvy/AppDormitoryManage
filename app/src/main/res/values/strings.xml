@@ -1,3 +1,53 @@
 <resources>
-    <string name="app_name">DoAn</string>
+    <string name="app_name">Đồ án</string>
+
+    <!-- Toolbar -->
+    <string name="title_toolbar">Quản lý ký túc xá</string>
+
+    <!-- Main - Quản lý phòng -->
+    <string name="header_room_management">Quản lý phòng</string>
+    <string name="label_room_name">Tên phòng:</string>
+    <string name="hint_room_name">Nhập tên phòng</string>
+    <string name="label_room_type">Loại phòng:</string>
+    <string name="room_type_male">Nam</string>
+    <string name="room_type_female">Nữ</string>
+    <string name="btn_clear">Xóa</string>
+    <string name="btn_save">Lưu</string>
+
+    <!-- Student Item -->
+    <string name="label_student_name">Tên:</string>
+    <string name="label_student_mssv">MSSV:</string>
+    <string name="label_student_address">Địa chỉ:</string>
+    <string name="label_student_gender">Giới tính:</string>
+    <string name="label_student_birthday">Ngày sinh:</string>
+    <string name="label_student_phone">SĐT:</string>
+
+    <!-- Student Detail -->
+    <string name="title_student_detail">Thông tin sinh viên</string>
+    <string name="btn_choose_image">Chọn ảnh</string>
+
+    <!-- Các nhãn dùng chung -->
+    <string name="label_fullname">Họ và tên:</string>
+    <string name="hint_fullname">Nhập họ và tên</string>
+
+    <string name="label_birthday">Ngày sinh:</string>
+    <string name="hint_birthday">dd-mm-yyyy</string>
+
+    <string name="label_mssv">MSSV:</string>
+    <string name="hint_mssv">Nhập MSSV</string>
+
+    <string name="label_phone">Số điện thoại:</string>
+    <string name="hint_phone">Nhập số điện thoại</string>
+
+    <string name="label_address">Địa chỉ:</string>
+    <string name="hint_address">Nhập địa chỉ</string>
+
+    <!-- Add Student -->
+    <string name="title_student_edit">Thêm sinh viên</string>
+    <string name="btn_cancel">Hủy</string>
+
+    <!-- Room list item -->
+    <string name="label_room_id">Mã</string>
+    <string name="label_room_name_header">Phòng</string>
+
 </resources>

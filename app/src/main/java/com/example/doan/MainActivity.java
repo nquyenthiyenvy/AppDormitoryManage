@@ -23,6 +23,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.doan.Adapter.RoomAdapter;
+import com.example.doan.language.LocalHelper;
 import com.example.doan.model.Room;
 
 import java.util.ArrayList;
@@ -66,6 +67,16 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.menu_logout) {
             finish();
+            return true;
+        }
+        if(id==R.id.lang_vn){
+            LocalHelper.setLocale(this,"vi");
+            recreate();
+            return true;
+        }
+        if(id==R.id.lang_en){
+            LocalHelper.setLocale(this,"en");
+            recreate();
             return true;
         }
         return super.onOptionsItemSelected(item);

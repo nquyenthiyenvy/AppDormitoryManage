@@ -1,223 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:fillViewport="true"
     android:id="@+id/main"
     android:background="#FFF5F8">
 
-    <LinearLayout
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_height="?attr/actionBarSize"
+        android:background="#3F51B5"
+        android:title="@string/title_student_detail"
+        android:titleTextColor="@android:color/white" />
 
-        <!-- Avatar -->
-        <ImageView
-            android:id="@+id/imgAvatar"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_background" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <!-- Button chọn ảnh -->
-        <Button
-            android:id="@+id/btnChooseImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="Choose image" />
-
-        <!-- Container thông tin -->
-        <!-- Container thông tin -->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/infoContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:padding="15dp"
-            android:background="@drawable/bg_info_box">
-
-            <!-- LABEL NAME -->
-            <TextView
-                android:id="@+id/lbName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Full name:"
-                android:textStyle="bold"
-                android:textColor="#444"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/edtName"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintHorizontal_weight="1"/>
-
-            <!-- NAME INPUT -->
-            <EditText
-                android:id="@+id/edtName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="Enter full name"
-                android:inputType="textPersonName"
-                app:layout_constraintStart_toEndOf="@id/lbName"
-                app:layout_constraintTop_toTopOf="@id/lbName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="2"/>
-
-            <!-- LABEL BIRTHDAY -->
-            <TextView
-                android:id="@+id/lbBirthday"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Birthday:"
-                android:textStyle="bold"
-                android:textColor="#444"
-                android:layout_marginTop="12dp"
-                app:layout_constraintTop_toBottomOf="@id/edtName"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/edtBirthday"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintHorizontal_weight="1"/>
-
-            <!-- BIRTHDAY INPUT -->
-            <EditText
-                android:id="@+id/edtBirthday"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="dd-mm-yyyy"
-                android:inputType="date"
-                android:layout_marginTop="12dp"
-                app:layout_constraintStart_toEndOf="@id/lbBirthday"
-                app:layout_constraintTop_toBottomOf="@id/edtName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="2"/>
-
-            <!-- LABEL MSSV -->
-            <TextView
-                android:id="@+id/lbMssv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="MSSV:"
-                android:textStyle="bold"
-                android:textColor="#444"
-                android:layout_marginTop="12dp"
-                app:layout_constraintTop_toBottomOf="@id/edtBirthday"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/edtMssv"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintHorizontal_weight="1"/>
-
-            <!-- MSSV INPUT -->
-            <EditText
-                android:id="@+id/edtMssv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="Student ID"
-                android:layout_marginTop="12dp"
-                app:layout_constraintStart_toEndOf="@id/lbMssv"
-                app:layout_constraintTop_toBottomOf="@id/edtBirthday"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="2"/>
-
-            <!-- LABEL PHONE -->
-            <TextView
-                android:id="@+id/lbPhone"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Phone:"
-                android:textStyle="bold"
-                android:textColor="#444"
-                android:layout_marginTop="12dp"
-                app:layout_constraintTop_toBottomOf="@id/edtMssv"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/edtPhone"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintHorizontal_weight="1"/>
-
-            <!-- PHONE INPUT -->
-            <EditText
-                android:id="@+id/edtPhone"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="Enter phone"
-                android:layout_marginTop="12dp"
-                android:inputType="phone"
-                app:layout_constraintStart_toEndOf="@id/lbPhone"
-                app:layout_constraintTop_toBottomOf="@id/edtMssv"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="2"/>
-
-            <!-- LABEL ADDRESS -->
-            <TextView
-                android:id="@+id/lbAddress"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Address:"
-                android:textStyle="bold"
-                android:textColor="#444"
-                android:layout_marginTop="12dp"
-                app:layout_constraintTop_toBottomOf="@id/edtPhone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/edtAddress"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintHorizontal_weight="1"/>
-
-            <!-- ADDRESS INPUT -->
-            <EditText
-                android:id="@+id/edtAddress"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="Enter address"
-                android:layout_marginTop="12dp"
-                android:inputType="text"
-                app:layout_constraintStart_toEndOf="@id/lbAddress"
-                app:layout_constraintTop_toBottomOf="@id/edtPhone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="2"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <!-- GOOGLE MAP -->
-        <fragment
-            android:id="@+id/map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginTop="20dp" />
-
-        <!-- Nút EXIT + SAVE -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="20dp"
-            android:weightSum="2">
+            android:padding="20dp"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btnExit"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="#A94442"
-                android:textColor="@android:color/white"
-                android:text="Exit" />
+            <!-- Avatar -->
+            <ImageView
+                android:id="@+id/imgAvatar"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_launcher_background"
+                android:scaleType="centerCrop" />
 
+            <!-- Button choose image -->
             <Button
-                android:id="@+id/btnSave"
-                android:layout_width="0dp"
+                android:id="@+id/btnChooseImage"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="#A94442"
-                android:textColor="@android:color/white"
-                android:text="Save" />
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="@string/btn_choose_image" />
+
+            <!-- Form -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/infoContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="15dp"
+                android:background="@drawable/bg_info_box">
+
+                <TextView
+                    android:id="@+id/lbName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_fullname"
+                    android:textColor="#444"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/edtName"/>
+
+                <EditText
+                    android:id="@+id/edtName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_fullname"
+                    android:inputType="textPersonName"
+                    app:layout_constraintStart_toEndOf="@id/lbName"
+                    app:layout_constraintTop_toTopOf="@id/lbName"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:id="@+id/lbBirthday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_birthday"
+                    android:textColor="#444"
+                    android:textStyle="bold"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/edtName"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/edtBirthday" />
+
+                <EditText
+                    android:id="@+id/edtBirthday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_birthday"
+                    android:inputType="date"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintStart_toEndOf="@id/lbBirthday"
+                    app:layout_constraintTop_toBottomOf="@id/edtName"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:id="@+id/lbMssv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_mssv"
+                    android:textColor="#444"
+                    android:textStyle="bold"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/edtBirthday"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/edtMssv" />
+
+                <EditText
+                    android:id="@+id/edtMssv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_mssv"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintStart_toEndOf="@id/lbMssv"
+                    app:layout_constraintTop_toBottomOf="@id/edtBirthday"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:id="@+id/lbPhone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_phone"
+                    android:textColor="#444"
+                    android:textStyle="bold"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/edtMssv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/edtPhone" />
+
+                <EditText
+                    android:id="@+id/edtPhone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_phone"
+                    android:inputType="phone"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintStart_toEndOf="@id/lbPhone"
+                    app:layout_constraintTop_toBottomOf="@id/edtMssv"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:id="@+id/lbAddress"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_address"
+                    android:textColor="#444"
+                    android:textStyle="bold"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/edtPhone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/edtAddress" />
+
+                <EditText
+                    android:id="@+id/edtAddress"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_address"
+                    android:layout_marginTop="12dp"
+                    android:inputType="text"
+                    app:layout_constraintStart_toEndOf="@id/lbAddress"
+                    app:layout_constraintTop_toBottomOf="@id/edtPhone"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Google Map -->
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginTop="20dp" />
+
+            <!-- Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/btnExit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/btn_cancel"
+                    android:backgroundTint="#A94442"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/btnSave"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/btn_save"
+                    android:backgroundTint="#A94442"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
 
-</ScrollView>
+</LinearLayout>

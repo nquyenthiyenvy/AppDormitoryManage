@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/itemRoom"
     android:layout_width="match_parent"
@@ -13,10 +14,7 @@
         android:id="@+id/tvRoomId"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:text="ID"
-        android:gravity="center"
-        android:textColor="#fff"
-        android:background="#3F51B5"
+        android:text="@string/label_room_id"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,10 +24,7 @@
         android:id="@+id/tvRoomName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Room Name"
-        android:gravity="center"
-        android:textColor="#fff"
-        android:background="#3F51B5"
+        android:text="@string/label_room_name"
         android:textStyle="bold"
         android:paddingStart="8dp"
         app:layout_constraintStart_toEndOf="@id/tvRoomId"
@@ -41,13 +36,10 @@
         android:id="@+id/tvRoomType"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="#fff"
-        android:background="#3F51B5"
-        android:text="Type"
+        android:text="@string/label_room_type"
         android:textStyle="bold"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

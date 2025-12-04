@@ -1,0 +1,52 @@
+<resources>
+    <!-- App -->
+    <string name="app_name">Dormitory Management</string>
+
+    <!-- Toolbar -->
+    <string name="title_toolbar">Dormitory Management</string>
+
+    <!-- Main - Room Management -->
+    <string name="header_room_management">ROOM MANAGEMENT</string>
+    <string name="label_room_name">Room name:</string>
+    <string name="hint_room_name">Enter room name</string>
+    <string name="label_room_type">Room type:</string>
+    <string name="room_type_male">Male</string>
+    <string name="room_type_female">Female</string>
+    <string name="btn_clear">Clear</string>
+    <string name="btn_save">Save</string>
+
+    <!-- Student Item -->
+    <string name="label_student_name">Name:</string>
+    <string name="label_student_mssv">Student ID:</string>
+    <string name="label_student_address">Address:</string>
+    <string name="label_student_gender">Gender:</string>
+    <string name="label_student_birthday">Birthday:</string>
+    <string name="label_student_phone">Phone:</string>
+
+    <!-- Student Detail / Add Student -->
+    <string name="title_student_detail">Student Details</string>
+    <string name="title_student_edit">Add Student</string>
+
+    <string name="btn_choose_image">Choose Image</string>
+    <string name="btn_cancel">Cancel</string>
+
+    <string name="label_fullname">Full name:</string>
+    <string name="hint_fullname">Enter full name</string>
+
+    <string name="label_birthday">Birthday:</string>
+    <string name="hint_birthday">dd-mm-yyyy</string>
+
+    <string name="label_mssv">Student ID:</string>
+    <string name="hint_mssv">Enter student ID</string>
+
+    <string name="label_phone">Phone:</string>
+    <string name="hint_phone">Enter phone number</string>
+
+    <string name="label_address">Address:</string>
+    <string name="hint_address">Enter address</string>
+
+    <!-- Room list item -->
+    <string name="label_room_id">ID</string>
+    <string name="label_room_name_header">Room</string>
+
+</resources>
