@@ -60,12 +60,12 @@ public class StudentAdapter extends ArrayAdapter<Student> {
         TextView tvGender = view.findViewById(R.id.tvStudentGender);
         TextView tvPhone = view.findViewById(R.id.tvStudentPhone);
         TextView tvAddress = view.findViewById(R.id.tvStudentAddress);
-        tvName.setText("Name: " + s.getName());
-        tvMssv.setText("MSSV: " + s.getMssv());
-        tvBirthday.setText("Birthday: " + s.getBirthday());
-        tvGender.setText("Gender: " + s.getGender());
-        tvPhone.setText("Phone: " + s.getPhone());
-        tvAddress.setText("Address: " + s.getAddress());
+        tvName.setText(context.getString(R.string.label_student_name) + " " + s.getName());
+        tvMssv.setText(context.getString(R.string.label_student_mssv) + " " + s.getMssv());
+        tvBirthday.setText(context.getString(R.string.label_student_birthday) + " " + s.getBirthday());
+        tvGender.setText(context.getString(R.string.label_student_gender) + " " + s.getGender());
+        tvPhone.setText(context.getString(R.string.label_student_phone) + " " + s.getPhone());
+        tvAddress.setText(context.getString(R.string.label_student_address) + " " + s.getAddress());
         String avatarPath = s.getAvatar();
 
         if (avatarPath != null && !avatarPath.isEmpty()) {
@@ -73,10 +73,10 @@ public class StudentAdapter extends ArrayAdapter<Student> {
             if (bitmap != null) {
                 imgAvatar.setImageBitmap(bitmap);
             } else {
-                imgAvatar.setImageResource(android.R.drawable.sym_def_app_icon);
+                imgAvatar.setImageResource(R.drawable.user_heart_alt_1);
             }
         } else {
-            imgAvatar.setImageResource(android.R.drawable.sym_def_app_icon);
+            imgAvatar.setImageResource(R.drawable.user_heart_alt_1);
         }
         return view;
     }

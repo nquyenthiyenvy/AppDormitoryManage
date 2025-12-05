@@ -25,7 +25,7 @@
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:layout_marginTop="20dp"
-        android:src="@android:drawable/sym_def_app_icon"
+        android:src="@drawable/user_pen_svgrepo_com"
         android:scaleType="centerCrop"
         app:layout_constraintTop_toBottomOf="@id/toolbar1"
         app:layout_constraintStart_toStartOf="parent"

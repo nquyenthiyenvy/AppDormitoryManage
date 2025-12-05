@@ -2,6 +2,8 @@ package com.example.doan;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -48,6 +50,12 @@ public class AddStudentForm extends AppCompatActivity {
         setContentView(R.layout.activity_add_student_form);
         Toolbar toolbar = findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(this.getString(R.string.title_toolbar));
+        toolbar.setTitleTextColor(Color.WHITE);
+        Drawable overflowIcon = toolbar.getOverflowIcon();
+        if (overflowIcon != null) {
+            overflowIcon.setTint(Color.WHITE);
+        }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -104,6 +112,7 @@ public class AddStudentForm extends AppCompatActivity {
     private void addEvent() {
         btnChoose.setOnClickListener(v -> chooseImage());
         btnSave.setOnClickListener(v -> saveStudent());
+        btnExit.setOnClickListener(v->finish());
     }
     private void chooseImage() {
         Intent intent = new Intent(Intent.ACTION_PICK);
